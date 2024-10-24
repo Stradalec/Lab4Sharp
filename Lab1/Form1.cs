@@ -35,5 +35,11 @@ namespace Lab1
             Newton newton = new Newton();
             newton.Show();
         }
+
+        private void coordinateDescentButton_Click(object sender, EventArgs e)
+        {
+            CoordinateDescent descent = new CoordinateDescent();
+            descent.Show();
+        }
     }
 }
