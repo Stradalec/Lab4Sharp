@@ -201,6 +201,7 @@ namespace Lab1
         public event EventHandler<EventArgs> CreateGraph;
         public event EventHandler<EventArgs> StartGoldenRatio;
         public event EventHandler<EventArgs> StartNewton;
+        public event EventHandler<EventArgs> StartDescent;
 
         void IView.ShowGraph(PlotModel plotModel)
         {
@@ -303,9 +304,9 @@ namespace Lab1
             CreateGraph(sender, inputEvent);
         }
 
-        private void toolStripTextBox2_Click(object sender, EventArgs e)
+        private void toolStripTextBox2_Click(object sender, EventArgs inputEvent)
         {
-
+            StartDescent(sender, inputEvent);
         }
     }
 }

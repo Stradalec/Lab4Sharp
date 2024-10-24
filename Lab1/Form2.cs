@@ -153,6 +153,7 @@ namespace Lab1
         public event EventHandler<EventArgs> CreateGraph;
         public event EventHandler<EventArgs> StartGoldenRatio;
         public event EventHandler<EventArgs> StartNewton;
+        public event EventHandler<EventArgs> StartDescent;
 
         byte IView.Choice()
         {

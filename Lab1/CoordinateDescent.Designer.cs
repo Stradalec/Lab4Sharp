@@ -343,7 +343,7 @@
             // 
             // pvGraph
             // 
-            pvGraph.Location = new System.Drawing.Point(361, 37);
+            pvGraph.Location = new System.Drawing.Point(361, 12);
             pvGraph.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pvGraph.Name = "pvGraph";
             pvGraph.PanCursor = System.Windows.Forms.Cursors.Hand;

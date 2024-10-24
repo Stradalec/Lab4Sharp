@@ -33,6 +33,7 @@ namespace Lab1
         event EventHandler<EventArgs> CreateGraph;
         event EventHandler<EventArgs> StartGoldenRatio;
         event EventHandler<EventArgs> StartNewton;
+        event EventHandler<EventArgs> StartDescent;
     }
 
 
@@ -339,6 +340,47 @@ namespace Lab1
             return (result, functionResult, array);
         }
 
+        public (double,double) Descent(string inputFunction, double inputApproximation, double epsilon, double step, double iterationCount) 
+        {
+            double result = 0;
+            double functionResult = 0;
+            double startX = inputApproximation;
+            double stepSize = step;
+            var context = new ExpressionContext();
+            context.Imports.AddType(typeof(Math));
+
+            for (int iterationIndex = 0; iterationIndex < iterationCount; ++iterationIndex)
+            {
+                double currentX = startX;
+                context.Variables["x"] = currentX;
+                var expression = context.CompileGeneric<double>(inputFunction);
+                double valueOfFunction = expression.Evaluate();
+                double descentX = startX - stepSize;
+                context.Variables["x"] = descentX;
+                double innerValueOfFunction = expression.Evaluate();
+                if (innerValueOfFunction < valueOfFunction)
+                {
+                    currentX = currentX - stepSize;
+                }
+                else
+                {
+                    currentX = currentX + stepSize;
+                }
+                startX = currentX;
+                context.Variables["x"] = currentX;
+                valueOfFunction = expression.Evaluate();
+                if (Math.Abs(innerValueOfFunction - valueOfFunction) < epsilon)
+                {
+                    result = currentX;
+                    context.Variables["x"] = result;
+                    functionResult = expression.Evaluate();
+                    break;
+                }
+                
+            }
+            return (result, functionResult);
+        }
+
         double NumericalDerivative(ExpressionContext context, IGenericExpression<double> expression, double x, double step)
         {
             double h = step;
@@ -378,6 +420,7 @@ namespace Lab1
             mainView.CreateGraph += new EventHandler<EventArgs>(CreateGraph);
             mainView.StartGoldenRatio += new EventHandler<EventArgs>(GoldenRatio);
             mainView.StartNewton += new EventHandler<EventArgs>(Newton);
+            mainView.StartDescent += new EventHandler<EventArgs>(Descent);
         }
 
         private void Newton(object sender, EventArgs inputEvent)
@@ -401,6 +444,12 @@ namespace Lab1
         private void GoldenRatio(object sender, EventArgs inputEvent)
         {
             var output = model.GoldenRatio(mainView.returnFunction(), mainView.firstSide(), mainView.secondSide(), mainView.epsilon(), mainView.MinimumOrMaximum());
+            mainView.ShowResult(output.Item1, output.Item2);
+        }
+
+        private void Descent(object sender, EventArgs inputEvent)
+        {
+            var output = model.Descent(mainView.returnFunction(), mainView.firstSide(), mainView.epsilon(), mainView.secondSide(), mainView.iterationCount());
             mainView.ShowResult(output.Item1, output.Item2);
         }
     }
