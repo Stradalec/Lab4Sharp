@@ -130,11 +130,7 @@ namespace Lab1
         byte IView.Choice()
         {
             byte choice = 1;
-            if (radioButton1.Checked)
-            {
-                choice = 1;
-            }
-            else if (radioButton2.Checked)
+            if (radioButton2.Checked)
             {
                 choice = 2;
             }
@@ -241,10 +237,6 @@ namespace Lab1
                 {
                     functionResult = Math.Abs(functionResult);
                     MessageBox.Show("Максимум:" + result.ToString() + "\n" + "Значение максимума:" + functionResult.ToString(), "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else if (radioButton1.Checked)
-                {
-                    MessageBox.Show("Точка пересечения:" + result.ToString(), "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
 

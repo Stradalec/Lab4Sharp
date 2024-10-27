@@ -340,43 +340,82 @@ namespace Lab1
             return (result, functionResult, array);
         }
 
-        public (double,double) Descent(string inputFunction, double inputApproximation, double epsilon, double step, double iterationCount) 
+        public (double,double) Descent(string inputFunction, double inputApproximation, double epsilon, double step, double iterationCount, byte inputChoice) 
         {
-            double result = 0;
-            double functionResult = 0;
+            double result = double.NaN;
+            double functionResult = double.NaN;
             double startX = inputApproximation;
             double stepSize = step;
+            double descentX = 0;
             var context = new ExpressionContext();
             context.Imports.AddType(typeof(Math));
 
             for (int iterationIndex = 0; iterationIndex < iterationCount; ++iterationIndex)
             {
                 double currentX = startX;
+                
                 context.Variables["x"] = currentX;
                 var expression = context.CompileGeneric<double>(inputFunction);
                 double valueOfFunction = expression.Evaluate();
-                double descentX = startX - stepSize;
+                descentX = startX - stepSize;
+                context.Variables["x"] = descentX;
+                expression = context.CompileGeneric<double>(inputFunction);
+                double valueOfLowerX = expression.Evaluate();
+                descentX = startX + stepSize;
+                context.Variables["x"] = descentX;
+                expression = context.CompileGeneric<double>(inputFunction);
+                double valueOfUpperX = expression.Evaluate();
+
                 context.Variables["x"] = descentX;
                 double innerValueOfFunction = expression.Evaluate();
-                if (innerValueOfFunction < valueOfFunction)
+
+                switch (inputChoice)
                 {
-                    currentX = currentX - stepSize;
+                    case 2:
+                        if (valueOfLowerX < valueOfUpperX)
+                        {
+                            currentX -= stepSize;
+                        }
+                        else if (valueOfLowerX > valueOfUpperX)
+                        {
+                            currentX += stepSize;
+                        }
+                        else
+                        {
+                            currentX -= stepSize * 10;
+                        }
+                        break;
+                    case 3:
+                        if (valueOfLowerX < valueOfUpperX)
+                        {
+                            currentX += stepSize;
+                        }
+                        else if (valueOfLowerX > valueOfUpperX)
+                        {
+                            currentX -= stepSize;
+                        }
+                        else
+                        {
+                            currentX -= stepSize * 10;
+                        }
+                        break;
                 }
-                else
-                {
-                    currentX = currentX + stepSize;
-                }
+
+                
                 startX = currentX;
-                context.Variables["x"] = currentX;
-                valueOfFunction = expression.Evaluate();
-                if (Math.Abs(innerValueOfFunction - valueOfFunction) < epsilon)
+                double leftDerivative = NumericalDerivative(context, expression, currentX - step, step);
+                double rightDerivative = NumericalDerivative(context, expression, currentX + step, step);
+                if (Math.Abs(valueOfLowerX - valueOfFunction) < epsilon && (leftDerivative * rightDerivative < 0))
                 {
                     result = currentX;
                     context.Variables["x"] = result;
                     functionResult = expression.Evaluate();
                     break;
                 }
+
                 
+
+
             }
             return (result, functionResult);
         }
@@ -449,7 +488,7 @@ namespace Lab1
 
         private void Descent(object sender, EventArgs inputEvent)
         {
-            var output = model.Descent(mainView.returnFunction(), mainView.firstSide(), mainView.epsilon(), mainView.secondSide(), mainView.iterationCount());
+            var output = model.Descent(mainView.returnFunction(), mainView.firstSide(), mainView.epsilon(), mainView.secondSide(), mainView.iterationCount(), mainView.Choice());
             mainView.ShowResult(output.Item1, output.Item2);
         }
     }

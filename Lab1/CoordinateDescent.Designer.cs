@@ -31,7 +31,6 @@
             groupBox1 = new System.Windows.Forms.GroupBox();
             radioButton3 = new System.Windows.Forms.RadioButton();
             radioButton2 = new System.Windows.Forms.RadioButton();
-            radioButton1 = new System.Windows.Forms.RadioButton();
             MethodDesignLabel = new System.Windows.Forms.Label();
             GraphDesignLabel = new System.Windows.Forms.Label();
             IterationLabel = new System.Windows.Forms.Label();
@@ -65,50 +64,38 @@
             // 
             groupBox1.Controls.Add(radioButton3);
             groupBox1.Controls.Add(radioButton2);
-            groupBox1.Controls.Add(radioButton1);
-            groupBox1.Location = new System.Drawing.Point(195, 429);
+            groupBox1.Location = new System.Drawing.Point(195, 428);
             groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
             groupBox1.Size = new System.Drawing.Size(132, 85);
             groupBox1.TabIndex = 77;
             groupBox1.TabStop = false;
+            groupBox1.Text = "Направление поиска экстремума";
             // 
             // radioButton3
             // 
             radioButton3.AutoSize = true;
-            radioButton3.Location = new System.Drawing.Point(10, 59);
+            radioButton3.Location = new System.Drawing.Point(65, 41);
             radioButton3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             radioButton3.Name = "radioButton3";
-            radioButton3.Size = new System.Drawing.Size(85, 19);
+            radioButton3.Size = new System.Drawing.Size(37, 19);
             radioButton3.TabIndex = 2;
             radioButton3.TabStop = true;
-            radioButton3.Text = "Максимум";
+            radioButton3.Text = "-X";
             radioButton3.UseVisualStyleBackColor = true;
             // 
             // radioButton2
             // 
             radioButton2.AutoSize = true;
-            radioButton2.Location = new System.Drawing.Point(10, 37);
+            radioButton2.Location = new System.Drawing.Point(9, 41);
             radioButton2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             radioButton2.Name = "radioButton2";
-            radioButton2.Size = new System.Drawing.Size(81, 19);
+            radioButton2.Size = new System.Drawing.Size(40, 19);
             radioButton2.TabIndex = 1;
             radioButton2.TabStop = true;
-            radioButton2.Text = "Минимум";
+            radioButton2.Text = "+X";
             radioButton2.UseVisualStyleBackColor = true;
-            // 
-            // radioButton1
-            // 
-            radioButton1.AutoSize = true;
-            radioButton1.Location = new System.Drawing.Point(10, 16);
-            radioButton1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new System.Drawing.Size(98, 19);
-            radioButton1.TabIndex = 0;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "Пересечение";
-            radioButton1.UseVisualStyleBackColor = true;
             // 
             // MethodDesignLabel
             // 
@@ -398,7 +385,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton radioButton3;
         private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.Label MethodDesignLabel;
         private System.Windows.Forms.Label GraphDesignLabel;
         internal System.Windows.Forms.Label IterationLabel;
