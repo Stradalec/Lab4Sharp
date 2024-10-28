@@ -88,6 +88,7 @@ namespace Lab1
                 var expression = context.CompileGeneric<double>(function);
                 double y = expression.Evaluate();
                 lineSeries.Points.Add(new DataPoint(counterI, y));
+                
             }
 
             // Добавляем все точки в серию
@@ -217,7 +218,6 @@ namespace Lab1
             double derivative = 0;
             double secondDerivative = 0;
             byte choice = 1;
-            string max;
             List<double[]> array = new List<double[]>();
             double leftDerivative = 0;
             double rightDerivative = 0;
@@ -347,15 +347,52 @@ namespace Lab1
             double startX = inputApproximation;
             double stepSize = step;
             double descentX = 0;
+            double wideStep = 1;
+            double safety = 0;
             var context = new ExpressionContext();
-            context.Imports.AddType(typeof(Math));
+            context.Imports.AddType(typeof(Math)); 
+            context.Variables["x"] = startX;
+            var expression = context.CompileGeneric<double>(inputFunction);
+            double lowWideStep = inputApproximation - wideStep;
+            double upWideStep = inputApproximation + wideStep;
+            double leftWideDerivative = NumericalDerivative(context, expression, startX - wideStep, step);
+            double rightWideDerivative = NumericalDerivative(context, expression, startX + wideStep, step);
+            do
+            {
+                context.Variables["x"] = startX;
+                double wideValueOfFunction = expression.Evaluate();
+                context.Variables["x"] = lowWideStep;
+                double lowWideValueOfFunction = expression.Evaluate();
+                context.Variables["x"] = upWideStep;
+                double upWideValueOfFunction = expression.Evaluate();
+                if (lowWideValueOfFunction < upWideValueOfFunction)
+                {
+                    startX -= wideStep;
+                    lowWideStep = startX - wideStep;
+                    upWideStep = startX + wideStep;
+                }
+                else if (lowWideValueOfFunction > upWideValueOfFunction)
+                {
+                    startX += wideStep;
+                    lowWideStep = startX - wideStep;
+                    upWideStep = startX + wideStep;
+                }
+                leftWideDerivative = NumericalDerivative(context, expression, startX - wideStep, step);
+                rightWideDerivative = NumericalDerivative(context, expression, startX + wideStep, step);
+                ++safety;
+            } while (leftWideDerivative * rightWideDerivative > 0 && safety < iterationCount);
+
+            if (safety == iterationCount) 
+            {
+                startX = inputApproximation;
+            }
 
             for (int iterationIndex = 0; iterationIndex < iterationCount; ++iterationIndex)
             {
                 double currentX = startX;
                 
                 context.Variables["x"] = currentX;
-                var expression = context.CompileGeneric<double>(inputFunction);
+                expression = context.CompileGeneric<double>(inputFunction);
                 double valueOfFunction = expression.Evaluate();
                 descentX = startX - stepSize;
                 context.Variables["x"] = descentX;
@@ -405,7 +442,7 @@ namespace Lab1
                 startX = currentX;
                 double leftDerivative = NumericalDerivative(context, expression, currentX - step, step);
                 double rightDerivative = NumericalDerivative(context, expression, currentX + step, step);
-                if (Math.Abs(valueOfLowerX - valueOfFunction) < epsilon && (leftDerivative * rightDerivative < 0))
+                if ((Math.Abs(valueOfLowerX - valueOfFunction) < epsilon || Math.Abs(valueOfUpperX - valueOfFunction) < epsilon)  && (leftDerivative * rightDerivative < 0))
                 {
                     result = currentX;
                     context.Variables["x"] = result;
