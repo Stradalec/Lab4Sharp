@@ -365,18 +365,49 @@ namespace Lab1
                 double lowWideValueOfFunction = expression.Evaluate();
                 context.Variables["x"] = upWideStep;
                 double upWideValueOfFunction = expression.Evaluate();
-                if (lowWideValueOfFunction < upWideValueOfFunction)
+                switch (inputChoice)
                 {
-                    startX -= wideStep;
-                    lowWideStep = startX - wideStep;
-                    upWideStep = startX + wideStep;
+                    case 2:
+                        if (lowWideValueOfFunction < upWideValueOfFunction)
+                        {
+                            startX -= wideStep;
+                            lowWideStep = startX - wideStep;
+                            upWideStep = startX + wideStep;
+                        }
+                        else if (lowWideValueOfFunction > upWideValueOfFunction)
+                        {
+                            startX += wideStep;
+                            lowWideStep = startX - wideStep;
+                            upWideStep = startX + wideStep;
+                        }
+                        break;
+                    case 3:
+                        if (lowWideValueOfFunction < upWideValueOfFunction)
+                        {
+                            startX -= wideStep;
+                            lowWideStep = startX - wideStep;
+                            upWideStep = startX + wideStep;
+                        }
+                        else if (lowWideValueOfFunction > upWideValueOfFunction)
+                        {
+                            startX += wideStep;
+                            lowWideStep = startX - wideStep;
+                            upWideStep = startX + wideStep;
+                        }
+                        break;
                 }
-                else if (lowWideValueOfFunction > upWideValueOfFunction)
-                {
-                    startX += wideStep;
-                    lowWideStep = startX - wideStep;
-                    upWideStep = startX + wideStep;
-                }
+                //if (lowWideValueOfFunction < upWideValueOfFunction)
+                //{
+                //    startX -= wideStep;
+                //    lowWideStep = startX - wideStep;
+                //    upWideStep = startX + wideStep;
+                //}
+                //else if (lowWideValueOfFunction > upWideValueOfFunction)
+                //{
+                //    startX += wideStep;
+                //    lowWideStep = startX - wideStep;
+                //    upWideStep = startX + wideStep;
+                //}
                 leftWideDerivative = NumericalDerivative(context, expression, startX - wideStep, step);
                 rightWideDerivative = NumericalDerivative(context, expression, startX + wideStep, step);
                 ++safety;
