@@ -349,6 +349,7 @@ namespace Lab1
             double descentX = 0;
             double wideStep = 1;
             double safety = 0;
+
             var context = new ExpressionContext();
             context.Imports.AddType(typeof(Math)); 
             context.Variables["x"] = startX;
@@ -371,43 +372,27 @@ namespace Lab1
                         if (lowWideValueOfFunction < upWideValueOfFunction)
                         {
                             startX -= wideStep;
-                            lowWideStep = startX - wideStep;
-                            upWideStep = startX + wideStep;
                         }
                         else if (lowWideValueOfFunction > upWideValueOfFunction)
                         {
                             startX += wideStep;
-                            lowWideStep = startX - wideStep;
-                            upWideStep = startX + wideStep;
                         }
+                        lowWideStep = startX - wideStep;
+                        upWideStep = startX + wideStep;
                         break;
                     case 3:
-                        if (lowWideValueOfFunction < upWideValueOfFunction)
+                        if (lowWideValueOfFunction > upWideValueOfFunction)
                         {
                             startX -= wideStep;
-                            lowWideStep = startX - wideStep;
-                            upWideStep = startX + wideStep;
                         }
-                        else if (lowWideValueOfFunction > upWideValueOfFunction)
+                        else if (lowWideValueOfFunction < upWideValueOfFunction)
                         {
                             startX += wideStep;
-                            lowWideStep = startX - wideStep;
-                            upWideStep = startX + wideStep;
                         }
+                        lowWideStep = startX - wideStep;
+                        upWideStep = startX + wideStep;
                         break;
                 }
-                //if (lowWideValueOfFunction < upWideValueOfFunction)
-                //{
-                //    startX -= wideStep;
-                //    lowWideStep = startX - wideStep;
-                //    upWideStep = startX + wideStep;
-                //}
-                //else if (lowWideValueOfFunction > upWideValueOfFunction)
-                //{
-                //    startX += wideStep;
-                //    lowWideStep = startX - wideStep;
-                //    upWideStep = startX + wideStep;
-                //}
                 leftWideDerivative = NumericalDerivative(context, expression, startX - wideStep, step);
                 rightWideDerivative = NumericalDerivative(context, expression, startX + wideStep, step);
                 ++safety;
@@ -448,24 +433,18 @@ namespace Lab1
                         {
                             currentX += stepSize;
                         }
-                        else
-                        {
-                            currentX -= stepSize * 10;
-                        }
+
                         break;
                     case 3:
-                        if (valueOfLowerX < valueOfUpperX)
-                        {
-                            currentX += stepSize;
-                        }
-                        else if (valueOfLowerX > valueOfUpperX)
+                        if (valueOfLowerX > valueOfUpperX)
                         {
                             currentX -= stepSize;
                         }
-                        else
+                        else if (valueOfLowerX < valueOfUpperX)
                         {
-                            currentX -= stepSize * 10;
+                            currentX += stepSize;
                         }
+
                         break;
                 }
 
@@ -480,9 +459,6 @@ namespace Lab1
                     functionResult = expression.Evaluate();
                     break;
                 }
-
-                
-
 
             }
             return (result, functionResult);
