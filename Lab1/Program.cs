@@ -340,7 +340,7 @@ namespace Lab1
             return (result, functionResult, array);
         }
 
-        public (double,double) Descent(string inputFunction, double inputApproximation, double epsilon, double step, double iterationCount, byte inputChoice) 
+        public (double,double) Descent(string inputFunction, double inputApproximation, double epsilon, double step, double iterationCount, byte inputChoice, bool isWideAllowed) 
         {
             double result = double.NaN;
             double functionResult = double.NaN;
@@ -358,45 +358,49 @@ namespace Lab1
             double upWideStep = inputApproximation + wideStep;
             double leftWideDerivative = NumericalDerivative(context, expression, startX - wideStep, step);
             double rightWideDerivative = NumericalDerivative(context, expression, startX + wideStep, step);
-            do
+            if (isWideAllowed)
             {
-                context.Variables["x"] = startX;
-                double wideValueOfFunction = expression.Evaluate();
-                context.Variables["x"] = lowWideStep;
-                double lowWideValueOfFunction = expression.Evaluate();
-                context.Variables["x"] = upWideStep;
-                double upWideValueOfFunction = expression.Evaluate();
-                switch (inputChoice)
+                do
                 {
-                    case 2:
-                        if (lowWideValueOfFunction < upWideValueOfFunction)
-                        {
-                            startX -= wideStep;
-                        }
-                        else if (lowWideValueOfFunction > upWideValueOfFunction)
-                        {
-                            startX += wideStep;
-                        }
-                        lowWideStep = startX - wideStep;
-                        upWideStep = startX + wideStep;
-                        break;
-                    case 3:
-                        if (lowWideValueOfFunction > upWideValueOfFunction)
-                        {
-                            startX -= wideStep;
-                        }
-                        else if (lowWideValueOfFunction < upWideValueOfFunction)
-                        {
-                            startX += wideStep;
-                        }
-                        lowWideStep = startX - wideStep;
-                        upWideStep = startX + wideStep;
-                        break;
-                }
-                leftWideDerivative = NumericalDerivative(context, expression, startX - wideStep, step);
-                rightWideDerivative = NumericalDerivative(context, expression, startX + wideStep, step);
-                ++safety;
-            } while (leftWideDerivative * rightWideDerivative > 0 && safety < iterationCount);
+                    context.Variables["x"] = startX;
+                    double wideValueOfFunction = expression.Evaluate();
+                    context.Variables["x"] = lowWideStep;
+                    double lowWideValueOfFunction = expression.Evaluate();
+                    context.Variables["x"] = upWideStep;
+                    double upWideValueOfFunction = expression.Evaluate();
+                    switch (inputChoice)
+                    {
+                        case 2:
+                            if (lowWideValueOfFunction < upWideValueOfFunction)
+                            {
+                                startX -= wideStep;
+                            }
+                            else if (lowWideValueOfFunction > upWideValueOfFunction)
+                            {
+                                startX += wideStep;
+                            }
+                            lowWideStep = startX - wideStep;
+                            upWideStep = startX + wideStep;
+                            break;
+                        case 3:
+                            if (lowWideValueOfFunction > upWideValueOfFunction)
+                            {
+                                startX -= wideStep;
+                            }
+                            else if (lowWideValueOfFunction < upWideValueOfFunction)
+                            {
+                                startX += wideStep;
+                            }
+                            lowWideStep = startX - wideStep;
+                            upWideStep = startX + wideStep;
+                            break;
+                    }
+                    leftWideDerivative = NumericalDerivative(context, expression, startX - wideStep, step);
+                    rightWideDerivative = NumericalDerivative(context, expression, startX + wideStep, step);
+                    ++safety;
+                } while (leftWideDerivative * rightWideDerivative > 0 && safety < iterationCount);
+            }
+            
 
             if (safety == iterationCount) 
             {
@@ -532,7 +536,7 @@ namespace Lab1
 
         private void Descent(object sender, EventArgs inputEvent)
         {
-            var output = model.Descent(mainView.returnFunction(), mainView.firstSide(), mainView.epsilon(), mainView.secondSide(), mainView.iterationCount(), mainView.Choice());
+            var output = model.Descent(mainView.returnFunction(), mainView.firstSide(), mainView.epsilon(), mainView.secondSide(), mainView.iterationCount(), mainView.Choice(), mainView.MinimumOrMaximum());
             mainView.ShowResult(output.Item1, output.Item2);
         }
     }

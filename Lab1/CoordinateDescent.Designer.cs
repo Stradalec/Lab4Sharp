@@ -56,6 +56,7 @@
             toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             toolStripTextBox2 = new System.Windows.Forms.ToolStripTextBox();
             pvGraph = new OxyPlot.WindowsForms.PlotView();
+            checkBox1 = new System.Windows.Forms.CheckBox();
             groupBox1.SuspendLayout();
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -71,30 +72,30 @@
             groupBox1.Size = new System.Drawing.Size(132, 85);
             groupBox1.TabIndex = 77;
             groupBox1.TabStop = false;
-            groupBox1.Text = "Искать:";
+            groupBox1.Text = "Направление поиска:";
             // 
             // radioButton3
             // 
             radioButton3.AutoSize = true;
-            radioButton3.Location = new System.Drawing.Point(8, 40);
+            radioButton3.Location = new System.Drawing.Point(69, 42);
             radioButton3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             radioButton3.Name = "radioButton3";
-            radioButton3.Size = new System.Drawing.Size(85, 19);
+            radioButton3.Size = new System.Drawing.Size(37, 19);
             radioButton3.TabIndex = 2;
             radioButton3.TabStop = true;
-            radioButton3.Text = "Максимум";
+            radioButton3.Text = "-X";
             radioButton3.UseVisualStyleBackColor = true;
             // 
             // radioButton2
             // 
             radioButton2.AutoSize = true;
-            radioButton2.Location = new System.Drawing.Point(8, 22);
+            radioButton2.Location = new System.Drawing.Point(9, 42);
             radioButton2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             radioButton2.Name = "radioButton2";
-            radioButton2.Size = new System.Drawing.Size(81, 19);
+            radioButton2.Size = new System.Drawing.Size(40, 19);
             radioButton2.TabIndex = 1;
             radioButton2.TabStop = true;
-            radioButton2.Text = "Минимум";
+            radioButton2.Text = "+X";
             radioButton2.UseVisualStyleBackColor = true;
             // 
             // MethodDesignLabel
@@ -208,7 +209,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(28, 445);
+            label2.Location = new System.Drawing.Point(30, 470);
             label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(136, 15);
@@ -218,7 +219,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(31, 381);
+            label1.Location = new System.Drawing.Point(33, 419);
             label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(45, 15);
@@ -227,7 +228,7 @@
             // 
             // LimitationBox
             // 
-            LimitationBox.Location = new System.Drawing.Point(31, 464);
+            LimitationBox.Location = new System.Drawing.Point(33, 489);
             LimitationBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             LimitationBox.Name = "LimitationBox";
             LimitationBox.Size = new System.Drawing.Size(80, 23);
@@ -236,7 +237,7 @@
             // 
             // epsilonBox
             // 
-            epsilonBox.Location = new System.Drawing.Point(31, 399);
+            epsilonBox.Location = new System.Drawing.Point(33, 437);
             epsilonBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             epsilonBox.Name = "epsilonBox";
             epsilonBox.Size = new System.Drawing.Size(80, 23);
@@ -341,11 +342,22 @@
             pvGraph.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE;
             pvGraph.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS;
             // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Location = new System.Drawing.Point(8, 381);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new System.Drawing.Size(167, 19);
+            checkBox1.TabIndex = 79;
+            checkBox1.Text = "\"Широкое\" приближение";
+            checkBox1.UseVisualStyleBackColor = true;
+            // 
             // CoordinateDescent
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(929, 522);
+            Controls.Add(checkBox1);
             Controls.Add(pvGraph);
             Controls.Add(groupBox1);
             Controls.Add(MethodDesignLabel);
@@ -410,5 +422,6 @@
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox2;
         public OxyPlot.WindowsForms.PlotView pvGraph;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.CompilerServices;
 
 namespace Lab1
 {
@@ -190,7 +191,15 @@ namespace Lab1
 
         bool IView.MinimumOrMaximum()
         {
-            return true;
+            if (checkBox1.Checked)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
         }
 
         public event EventHandler<EventArgs> StartDichotomy;
