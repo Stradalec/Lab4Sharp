@@ -71,30 +71,30 @@
             groupBox1.Size = new System.Drawing.Size(132, 85);
             groupBox1.TabIndex = 77;
             groupBox1.TabStop = false;
-            groupBox1.Text = "Направление поиска экстремума";
+            groupBox1.Text = "Искать:";
             // 
             // radioButton3
             // 
             radioButton3.AutoSize = true;
-            radioButton3.Location = new System.Drawing.Point(65, 41);
+            radioButton3.Location = new System.Drawing.Point(8, 40);
             radioButton3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             radioButton3.Name = "radioButton3";
-            radioButton3.Size = new System.Drawing.Size(37, 19);
+            radioButton3.Size = new System.Drawing.Size(85, 19);
             radioButton3.TabIndex = 2;
             radioButton3.TabStop = true;
-            radioButton3.Text = "-X";
+            radioButton3.Text = "Максимум";
             radioButton3.UseVisualStyleBackColor = true;
             // 
             // radioButton2
             // 
             radioButton2.AutoSize = true;
-            radioButton2.Location = new System.Drawing.Point(9, 41);
+            radioButton2.Location = new System.Drawing.Point(8, 22);
             radioButton2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             radioButton2.Name = "radioButton2";
-            radioButton2.Size = new System.Drawing.Size(40, 19);
+            radioButton2.Size = new System.Drawing.Size(81, 19);
             radioButton2.TabIndex = 1;
             radioButton2.TabStop = true;
-            radioButton2.Text = "+X";
+            radioButton2.Text = "Минимум";
             radioButton2.UseVisualStyleBackColor = true;
             // 
             // MethodDesignLabel
@@ -249,9 +249,9 @@
             rightLabel.Location = new System.Drawing.Point(191, 325);
             rightLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             rightLabel.Name = "rightLabel";
-            rightLabel.Size = new System.Drawing.Size(126, 15);
+            rightLabel.Size = new System.Drawing.Size(71, 15);
             rightLabel.TabIndex = 60;
-            rightLabel.Text = "Знач. для числ. дифф";
+            rightLabel.Text = "Шаг метода";
             // 
             // leftLabel
             // 
