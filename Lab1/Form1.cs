@@ -16,6 +16,7 @@ namespace Lab1
         public MainForm()
         {
             InitializeComponent();
+
         }
 
         private void dichotomyButton_Click(object sender, EventArgs e)
@@ -40,6 +41,12 @@ namespace Lab1
         {
             CoordinateDescent descent = new CoordinateDescent();
             descent.Show();
+        }
+
+        private void sortingsButton_Click(object sender, EventArgs e)
+        {
+            Sortings sortings = new Sortings();
+            sortings.Show();
         }
     }
 }
